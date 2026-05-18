@@ -1,0 +1,6 @@
+ollama
+opencv-python
+requests
+google-generativeai
+python-dotenv
+flask
