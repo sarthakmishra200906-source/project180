@@ -1,0 +1,1346 @@
+/* ============================================
+   CSS Variables & Color Palette
+   ============================================ */
+:root {
+    --primary-color: #007BFF;
+    --primary-hover: #0056b3;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+
+    --bg-color: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #0ea5e9 100%);
+    --text-color: #ffffff;
+    --border-color: rgba(255, 255, 255, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-base: 16px;
+    --font-size-sm: 14px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+
+    --border-radius: 5px;
+    --transition-speed: 0.3s ease;
+}
+
+/* ============================================
+   Global Reset & Base Styles
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--bg-color);
+    min-height: 100vh;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+}
+
+h1 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* ============================================
+   Form Elements
+   ============================================ */
+input,
+textarea,
+select {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: border-color var(--transition-speed);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+button,
+.btn {
+    padding: 15px 30px;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+button:hover,
+.btn:hover {
+    background-color: var(--primary-hover);
+}
+
+button:active,
+.btn:active {
+    opacity: 0.9;
+}
+
+button:disabled,
+.btn:disabled {
+    background-color: var(--secondary-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Button Variants */
+.btn-secondary {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-success {
+    background-color: var(--success-color);
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* ============================================
+   Layout Components
+   ============================================ */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: var(--spacing-lg);
+}
+
+.row {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.col {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-xs {
+    margin-top: var(--spacing-xs);
+}
+
+.mt-sm {
+    margin-top: var(--spacing-sm);
+}
+
+.mt-md {
+    margin-top: var(--spacing-md);
+}
+
+.mt-lg {
+    margin-top: var(--spacing-lg);
+}
+
+.mt-xl {
+    margin-top: var(--spacing-xl);
+}
+
+.mb-xs {
+    margin-bottom: var(--spacing-xs);
+}
+
+.mb-sm {
+    margin-bottom: var(--spacing-sm);
+}
+
+.mb-md {
+    margin-bottom: var(--spacing-md);
+}
+
+.mb-lg {
+    margin-bottom: var(--spacing-lg);
+}
+
+.mb-xl {
+    margin-bottom: var(--spacing-xl);
+}
+
+.p-xs {
+    padding: var(--spacing-xs);
+}
+
+.p-sm {
+    padding: var(--spacing-sm);
+}
+
+.p-md {
+    padding: var(--spacing-md);
+}
+
+.p-lg {
+    padding: var(--spacing-lg);
+}
+
+.p-xl {
+    padding: var(--spacing-xl);
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+/* ============================================
+   Circular Controller Pad
+   ============================================ */
+
+/* Main controller container */
+.controller-pad {
+    --controller-size: min(68vh, 62vw);
+    --button-size: calc(var(--controller-size) * 0.11);
+    --center-button-size: calc(var(--button-size) * 0.8);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--controller-size);
+    height: var(--controller-size);
+    border-radius: 50%;
+    background: radial-gradient(circle at 25% 25%, #1a1a1a 0%, #2d2d2d 30%, #1a1a1a 100%);
+    box-shadow:
+        inset 0 15px 35px rgba(0, 0, 0, 0.8),
+        inset 0 -10px 25px rgba(255, 255, 255, 0.1),
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(59, 130, 246, 0.3);
+    position: relative;
+    animation: controllerGlow 3s ease-in-out infinite;
+}
+
+@keyframes controllerGlow {
+
+    0%,
+    100% {
+        box-shadow:
+            inset 0 15px 35px rgba(0, 0, 0, 0.8),
+            inset 0 -10px 25px rgba(255, 255, 255, 0.1),
+            0 30px 80px rgba(0, 0, 0, 0.5),
+            0 0 60px rgba(59, 130, 246, 0.3);
+    }
+
+    50% {
+        box-shadow:
+            inset 0 15px 35px rgba(0, 0, 0, 0.8),
+            inset 0 -10px 25px rgba(255, 255, 255, 0.1),
+            0 30px 80px rgba(0, 0, 0, 0.5),
+            0 0 80px rgba(59, 130, 246, 0.5);
+    }
+}
+
+/* Button grid container - uses CSS Grid for precise positioning */
+.controller-buttons {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0;
+    place-items: center;
+}
+
+/* Individual direction buttons */
+.btn-controller {
+    width: var(--button-size);
+    height: var(--button-size);
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    font-size: calc(var(--button-size) * 0.4);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 2px 5px rgba(255, 255, 255, 0.2);
+    user-select: none;
+    color: white;
+    font-size: calc(var(--button-size) * 0.5);
+    letter-spacing: 1px;
+}
+
+.btn-controller:hover {
+    transform: scale(1.08) translateY(-3px);
+    box-shadow:
+        0 12px 35px rgba(59, 130, 246, 0.4),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 2px 5px rgba(255, 255, 255, 0.3),
+        0 0 20px rgba(59, 130, 246, 0.6);
+}
+
+.btn-controller:active {
+    transform: scale(0.92);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 3px rgba(255, 255, 255, 0.1);
+}
+
+/* Direction buttons - Top, Bottom, Left, Right - All blue */
+.btn-up,
+.btn-down,
+.btn-left,
+.btn-right {
+    background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+}
+
+.btn-up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.btn-down {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.btn-left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.btn-right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+/* Center action buttons */
+.btn-center {
+    grid-column: 2;
+    grid-row: 2;
+    width: var(--center-button-size);
+    height: var(--center-button-size);
+    background: radial-gradient(circle at 30% 30%, #60a5fa, #1e40af);
+}
+
+/* Alternative corner buttons (A, B, X, Y layout) */
+.btn-a {
+    grid-column: 3;
+    grid-row: 3;
+    background-color: var(--success-color);
+}
+
+.btn-b {
+    grid-column: 3;
+    grid-row: 1;
+    background-color: var(--danger-color);
+}
+
+.btn-x {
+    grid-column: 1;
+    grid-row: 1;
+    background-color: var(--primary-color);
+}
+
+.btn-y {
+    grid-column: 1;
+    grid-row: 3;
+    background-color: var(--warning-color);
+}
+
+/* Button press animations */
+@keyframes buttonPress {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.92);
+    }
+}
+
+.btn-controller:active {
+    animation: buttonPress 0.1s ease-out;
+}
+
+/* Pressed state applied by JS for consistent multi-touch feedback */
+[data-action].pressed,
+.btn-controller.pressed,
+.btn-gas.pressed,
+.btn-brake.pressed,
+.btn-center-mobile.pressed {
+    transform: scale(0.95) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), inset 0 -6px 14px rgba(0, 0, 0, 0.45) !important;
+    opacity: 0.95;
+}
+
+/* Flexbox alternative layout */
+.controller-flex {
+    --controller-size: min(400px, 90vmin);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: var(--controller-size);
+    height: var(--controller-size);
+    gap: calc(var(--controller-size) * 0.05);
+    padding: calc(var(--controller-size) * 0.1);
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #f0f0f0, #d0d0d0);
+    box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.flex-row {
+    display: flex;
+    gap: calc(var(--controller-size) * 0.05);
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive adjustments for controller */
+@media (max-width: 1024px) {
+
+    .controller-pad,
+    .controller-flex {
+        --controller-size: min(60vh, 60vw);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .controller-pad,
+    .controller-flex {
+        --controller-size: min(70vh, 70vw);
+        --button-size: calc(var(--controller-size) * 0.14);
+    }
+}
+
+@media (max-width: 480px) {
+
+    .controller-pad,
+    .controller-flex {
+        --controller-size: min(85vh, 85vw);
+        --button-size: calc(var(--controller-size) * 0.16);
+    }
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        font-size: var(--font-size-sm);
+    }
+
+    .container {
+        padding: var(--spacing-md);
+    }
+
+    .main {
+        gap: var(--spacing-md);
+    }
+
+    button,
+    .btn {
+        padding: 12px 24px;
+        font-size: var(--font-size-sm);
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .col {
+        min-width: 100%;
+    }
+
+}
+
+/* ============================================
+   Device Selection Modal
+   ============================================ */
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 20px;
+    padding: 50px 40px;
+    text-align: center;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(59, 130, 246, 0.3);
+    border: 2px solid rgba(59, 130, 246, 0.3);
+    max-width: 500px;
+    animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content h2 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 25px 35px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.modal-btn:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 12px 35px rgba(59, 130, 246, 0.5),
+        0 0 25px rgba(59, 130, 246, 0.6);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-btn:active {
+    transform: scale(0.95);
+}
+
+.modal-btn .icon {
+    font-size: 32px;
+}
+
+/* ============================================
+   Controller Containers
+   ============================================ */
+.controller-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 0;
+    padding: 12px 20px;
+}
+
+.controller-container.hidden {
+    display: none;
+}
+
+/* ============================================
+   Mobile Steering Controller
+   ============================================ */
+.mobile-controller {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.steering-wheel {
+    --wheel-size: min(250px, 60vw);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--wheel-size);
+    height: var(--wheel-size);
+    border-radius: 50%;
+    background: radial-gradient(circle at 25% 25%, #1a1a1a 0%, #2d2d2d 30%, #1a1a1a 100%);
+    box-shadow:
+        inset 0 15px 35px rgba(0, 0, 0, 0.8),
+        inset 0 -10px 25px rgba(255, 255, 255, 0.1),
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(59, 130, 246, 0.3);
+    position: relative;
+}
+
+.steering-wheel::before {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #404040, #1a1a1a);
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.btn-steer {
+    position: absolute;
+    width: calc(var(--wheel-size) * 0.15);
+    height: calc(var(--wheel-size) * 0.15);
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+    color: white;
+    font-size: calc(var(--wheel-size) * 0.08);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 2px 5px rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+.btn-steer:hover {
+    transform: scale(1.1);
+    box-shadow:
+        0 12px 35px rgba(59, 130, 246, 0.4),
+        0 0 20px rgba(59, 130, 246, 0.6);
+}
+
+.btn-steer:active {
+    transform: scale(0.95);
+}
+
+.btn-steer-left {
+    left: -15%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.btn-steer-right {
+    right: -15%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.steering-center {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-center-mobile {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    border: none;
+    background: radial-gradient(circle at 30% 30%, #60a5fa, #1e40af);
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 2px 5px rgba(255, 255, 255, 0.2);
+}
+
+.btn-center-mobile:hover {
+    transform: scale(1.05);
+    box-shadow:
+        0 12px 35px rgba(59, 130, 246, 0.4),
+        0 0 20px rgba(59, 130, 246, 0.6);
+}
+
+.btn-center-mobile:active {
+    transform: scale(0.92);
+}
+
+.gas-brake-controls {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-gas,
+.btn-brake {
+    --btn-size: min(84px, 17vw);
+    width: var(--btn-size);
+    height: var(--btn-size);
+    border: none;
+    border-radius: 15px;
+    font-size: calc(var(--btn-size) * 0.25);
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+        inset 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+.btn-gas {
+    background: linear-gradient(135deg, #28a745 0%, #1a6a2e 100%);
+}
+
+.btn-gas:hover {
+    transform: scale(1.08) translateY(-3px);
+    box-shadow:
+        0 15px 40px rgba(40, 167, 69, 0.4),
+        0 0 25px rgba(40, 167, 69, 0.6);
+}
+
+.btn-gas:active {
+    transform: scale(0.95);
+}
+
+.btn-brake {
+    background: linear-gradient(135deg, #dc3545 0%, #a02830 100%);
+}
+
+.btn-brake:hover {
+    transform: scale(1.08) translateY(-3px);
+    box-shadow:
+        0 15px 40px rgba(220, 53, 69, 0.4),
+        0 0 25px rgba(220, 53, 69, 0.6);
+}
+
+.btn-brake:active {
+    transform: scale(0.95);
+}
+
+.btn-gas span,
+.btn-brake span {
+    font-size: calc(var(--btn-size) * 0.15);
+}
+
+/* ============================================
+   Switch Model Button
+   ============================================ */
+.switch-model-btn {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 8px 25px rgba(59, 130, 246, 0.3),
+        0 0 20px rgba(59, 130, 246, 0.2);
+    z-index: 100;
+}
+
+.switch-model-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow:
+        0 12px 35px rgba(59, 130, 246, 0.5),
+        0 0 30px rgba(59, 130, 246, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.switch-model-btn:active {
+    transform: translateX(-50%) scale(0.98);
+}
+
+.switch-model-btn.hidden {
+    display: none;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
+    border-top: 2px solid rgba(59, 130, 246, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    font-size: 12px;
+    z-index: 50;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    text-align: center;
+}
+
+.footer-section h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #60a5fa;
+}
+
+.footer-section p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.footer-disclaimer {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(59, 130, 246, 0.2);
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+.footer-disclaimer p {
+    margin: 5px 0;
+}
+
+.footer-disclaimer strong {
+    color: #60a5fa;
+}
+
+/* ============================================
+   Layout Overrides for Non-Overlapping UI
+   ============================================ */
+body.main {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 100dvh;
+    padding: clamp(16px, 2vw, 28px);
+    overflow-x: hidden;
+}
+
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: clamp(18px, 2.8vw, 30px);
+    flex: 1;
+    min-height: 0;
+    width: min(1200px, 100%);
+    margin: 0 auto;
+}
+
+.controller-stage {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    gap: clamp(20px, 3vw, 32px);
+    padding-top: clamp(8px, 1.2vw, 16px);
+    padding-bottom: clamp(24px, 4vw, 44px);
+}
+
+.controller-container {
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+}
+
+.controller-container.hidden {
+    display: none;
+}
+
+.mobile-controller {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: clamp(26px, 4vw, 42px);
+    width: 100%;
+    max-width: 720px;
+    padding: clamp(8px, 1vw, 16px) 0 10px;
+}
+
+.steering-wheel-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.steering-hint {
+    margin: 0;
+    max-width: 30rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+}
+
+.steering-wheel {
+    --wheel-size: clamp(210px, 46vw, 340px);
+    --wheel-rotation: 0deg;
+    position: relative;
+    width: var(--wheel-size);
+    height: var(--wheel-size);
+    border-radius: 50%;
+    transform: rotate(var(--wheel-rotation));
+    transform-origin: center center;
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+    touch-action: none;
+    user-select: none;
+    cursor: grab;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0 18%, transparent 19%),
+        radial-gradient(circle at 50% 50%, #141922 0 40%, #0a0d11 58%, #050608 100%);
+    box-shadow:
+        inset 0 10px 18px rgba(255, 255, 255, 0.05),
+        inset 0 -20px 28px rgba(0, 0, 0, 0.72),
+        0 26px 70px rgba(0, 0, 0, 0.45),
+        0 0 0 12px rgba(0, 0, 0, 0.18);
+}
+
+.steering-wheel.is-dragging {
+    transition: none;
+    cursor: grabbing;
+}
+
+.steering-wheel::before {
+    content: "";
+    position: absolute;
+    inset: 7%;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 22%, rgba(0, 0, 0, 0) 40%),
+        linear-gradient(145deg, #2a313b 0%, #0c1017 45%, #06080b 100%);
+    box-shadow:
+        inset 0 14px 18px rgba(255, 255, 255, 0.06),
+        inset 0 -16px 20px rgba(0, 0, 0, 0.8),
+        inset 0 0 0 10px rgba(255, 255, 255, 0.02);
+}
+
+.steering-wheel::after {
+    content: "";
+    position: absolute;
+    top: 4.2%;
+    left: 50%;
+    width: 18px;
+    height: 12px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: linear-gradient(180deg, #f7fafc 0%, #94a3b8 55%, #3b4655 100%);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.18);
+    z-index: 4;
+}
+
+.steering-wheel__spoke {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12%;
+    height: 37%;
+    border-radius: 999px;
+    transform-origin: center center;
+    background: linear-gradient(180deg, #eef2f7 0%, #a1aec1 35%, #485163 70%, #212833 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        inset 0 -3px 8px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(0, 0, 0, 0.35);
+    z-index: 2;
+}
+
+.steering-wheel__spoke--top {
+    transform: translate(-50%, -100%) rotate(0deg);
+    height: 43%;
+    width: 11%;
+}
+
+.steering-wheel__spoke--left {
+    transform: translate(-50%, -50%) rotate(-58deg);
+}
+
+.steering-wheel__spoke--right {
+    transform: translate(-50%, -50%) rotate(58deg);
+}
+
+.steering-wheel__hub {
+    position: absolute;
+    inset: 31%;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 18%, rgba(255, 255, 255, 0) 35%),
+        radial-gradient(circle at 50% 50%, #2d3746 0%, #11161d 52%, #080b10 100%);
+    box-shadow:
+        inset 0 10px 18px rgba(255, 255, 255, 0.07),
+        inset 0 -12px 18px rgba(0, 0, 0, 0.78),
+        0 12px 28px rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.btn-center-mobile {
+    width: 78%;
+    height: 78%;
+    border: none;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 28%, #e5ebf5 0%, #94a3b8 26%, #475569 58%, #111827 100%);
+    color: #ffffff;
+    font-size: clamp(28px, 5vw, 38px);
+    line-height: 1;
+    box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -8px 14px rgba(0, 0, 0, 0.55),
+        0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.btn-center-mobile:hover {
+    transform: scale(1.04);
+}
+
+.gas-brake-controls {
+    display: flex;
+    gap: clamp(14px, 3vw, 22px);
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mode-switch-area {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 4px clamp(8px, 2vw, 24px) 0;
+    margin-top: clamp(12px, 2vw, 24px);
+    position: relative;
+    z-index: 0;
+}
+
+.switch-model-btn {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    min-width: min(100%, 260px);
+    padding: 14px 34px;
+    border-radius: 999px;
+    min-height: 52px;
+    z-index: 10;
+}
+
+.switch-model-btn:hover {
+    transform: scale(1.04);
+}
+
+.switch-model-btn:active {
+    transform: scale(0.98);
+}
+
+.footer {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 0;
+    border-radius: 24px 24px 0 0;
+    backdrop-filter: blur(10px);
+}
+
+.footer-content {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    body.main {
+        padding: 12px;
+    }
+
+    .app-shell {
+        gap: 18px;
+    }
+
+    .steering-wheel {
+        --wheel-size: min(60vw, 260px);
+    }
+
+    .controller-pad {
+        --controller-size: min(56vh, 56vw);
+    }
+
+    .btn-center-mobile {
+        font-size: clamp(24px, 5.5vw, 34px);
+    }
+
+    .switch-model-btn {
+        width: min(100%, 300px);
+        padding: 14px 28px;
+    }
+
+    .mode-switch-area {
+        margin-top: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-controller {
+        gap: 18px;
+    }
+
+    .steering-wheel {
+        --wheel-size: min(56vw, 230px);
+    }
+
+    .controller-pad {
+        --controller-size: min(48vh, 52vw);
+    }
+
+    .steering-hint {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .mode-switch-area {
+        padding-top: 2px;
+    }
+
+    .footer {
+        padding: 12px;
+    }
+
+    .footer-content {
+        gap: 12px;
+    }
+
+    .footer-section h3 {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .footer-section p,
+    .footer-disclaimer {
+        font-size: 10px;
+    }
+}
+
+@media (max-height: 700px) {
+    .app-shell {
+        gap: 12px;
+    }
+
+    .controller-stage {
+        padding-top: 4px;
+        gap: 14px;
+    }
+
+    .mobile-controller {
+        gap: 14px;
+    }
+
+    .controller-pad {
+        --controller-size: min(44vh, 52vw);
+    }
+
+    .steering-wheel {
+        --wheel-size: min(30vh, 220px);
+    }
+
+    .steering-hint {
+        font-size: 12px;
+    }
+
+    .switch-model-btn {
+        min-height: 46px;
+        padding: 12px 24px;
+    }
+
+    .mode-switch-area {
+        margin-top: 10px;
+        padding-top: 0;
+    }
+
+    .footer {
+        padding: 10px 12px;
+    }
+
+    .footer-content {
+        gap: 10px;
+    }
+
+    .footer-section h3 {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .footer-section p,
+    .footer-disclaimer {
+        font-size: 9px;
+        line-height: 1.35;
+    }
+}

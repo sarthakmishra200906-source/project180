@@ -2,15 +2,17 @@
 
 from pathlib import Path
 
-from flask import Flask, request, jsonify, render_template_string, Response
+from flask import Flask, request, jsonify, render_template_string, Response, send_from_directory
+import requests
 from server.core.ai_brain import AIBrain
-from server.config import SERVER_HOST, SERVER_PORT
+from server.config import SERVER_HOST, SERVER_PORT, ESP32_BASE_URL
 
 
 app = Flask(__name__)
 brain = AIBrain()
 app.logger.setLevel(10)
 LOG_DIR = Path(__file__).resolve().parents[1] / "logs"
+WEB_CONTROLLER_DIR = Path(__file__).resolve().parents[1] / "web_controller"
 
 
 CHAT_TEMPLATE = """
@@ -183,6 +185,16 @@ def index():
     return render_template_string(CHAT_TEMPLATE, host=SERVER_HOST, port=SERVER_PORT)
 
 
+@app.route("/controller", methods=["GET"])
+def controller_index():
+    return send_from_directory(WEB_CONTROLLER_DIR, "index.html")
+
+
+@app.route("/controller/<path:filename>", methods=["GET"])
+def controller_assets(filename: str):
+    return send_from_directory(WEB_CONTROLLER_DIR, filename)
+
+
 @app.route("/ai", methods=["POST"])
 def ai_endpoint():
     payload = request.get_json(silent=True) or {}
@@ -197,6 +209,19 @@ def ai_endpoint():
     app.logger.info("/ai response length: %d", len(text))
     # Return plain text so the frontend can stream or display clean Q&A text
     return Response(text, content_type="text/plain; charset=utf-8")
+
+
+@app.route("/control/<action>", methods=["POST"])
+def proxy_control(action: str):
+    target_url = f"{ESP32_BASE_URL}/{action}"
+    app.logger.info("Proxy control request: %s", target_url)
+
+    try:
+        response = requests.post(target_url, timeout=1.0)
+        return Response(response.content, status=response.status_code, content_type=response.headers.get("content-type", "text/plain; charset=utf-8"))
+    except requests.RequestException as exc:
+        app.logger.warning("control proxy failed for %s: %s", action, exc)
+        return jsonify({"error": "controller unreachable", "action": action}), 502
 
 
 @app.route('/client_log', methods=['POST'])

@@ -5,20 +5,109 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Project 180 Controller</title>
-    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="/controller/style.css" />
 </head>
 
-<body>
-    <main>
-        <h1>Project 180 Remote</h1>
-        <section>
-            <button data-action="forward">Forward</button>
-            <button data-action="left">Left</button>
-            <button data-action="stop">Stop</button>
-            <button data-action="right">Right</button>
-            <button data-action="backward">Backward</button>
+<body class="main">
+    <!-- Device Selection Modal -->
+    <div id="deviceModal" class="modal">
+        <div class="modal-content">
+            <h2>Select Your Device Type</h2>
+            <p>Choose how you want to control the car:</p>
+            <div class="modal-buttons">
+                <button id="laptopBtn" class="modal-btn laptop-btn">
+                    <span class="icon">💻</span>
+                    <span>Laptop/Desktop</span>
+                </button>
+                <button id="mobileBtn" class="modal-btn mobile-btn">
+                    <span class="icon">📱</span>
+                    <span>Mobile</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main class="app-shell">
+        <!-- Connection Panel -->
+        <section class="connection-panel">
+            <label for="esp-ip">ESP32 IP:</label>
+            <input id="esp-ip" type="text" placeholder="192.168.4.1" />
+            <button id="connect-btn">Connect</button>
+            <span id="status-indicator" class="disconnected" aria-hidden="true"></span>
+            <span id="status-text">Disconnected</span>
+            <div id="payload-debug" aria-live="polite" style="margin-left:16px;font-family:monospace;"></div>
         </section>
+        <div class="controller-stage">
+            <!-- Laptop Controller - Circular Pad -->
+            <section id="laptopController" class="controller-container hidden">
+                <section class="controller-pad">
+                    <div class="controller-buttons">
+                        <!-- Direction Buttons -->
+                        <button class="btn-controller btn-up" data-action="forward" title="Forward">↑</button>
+                        <button class="btn-controller btn-down" data-action="backward" title="Backward">↓</button>
+                        <button class="btn-controller btn-left" data-action="left" title="Left">←</button>
+                        <button class="btn-controller btn-right" data-action="right" title="Right">→</button>
+
+                        <!-- Center Button -->
+                        <button class="btn-controller btn-center" data-action="stop" title="Stop">●</button>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Mobile Controller - Steering/Gas/Brake -->
+            <section id="mobileController" class="controller-container hidden">
+                <div class="mobile-controller">
+                    <div class="steering-wheel-wrap">
+                        <div id="steeringWheel" class="steering-wheel" aria-label="Steering wheel control"
+                            role="application">
+                            <span class="steering-wheel__spoke steering-wheel__spoke--top" aria-hidden="true"></span>
+                            <span class="steering-wheel__spoke steering-wheel__spoke--left" aria-hidden="true"></span>
+                            <span class="steering-wheel__spoke steering-wheel__spoke--right" aria-hidden="true"></span>
+                            <div class="steering-wheel__hub">
+                                <button class="btn-center-mobile" data-action="stop" title="Stop">●</button>
+                            </div>
+                        </div>
+                        <p class="steering-hint">Drag the wheel to steer. Release to recenter.</p>
+                    </div>
+
+                    <!-- Gas and Brake Controls -->
+                    <div class="gas-brake-controls">
+                        <button class="btn-gas" data-action="forward"
+                            title="Gas/Forward">🚗<span>FORWARD</span></button>
+                        <button class="btn-brake" data-action="backward"
+                            title="Brake/Backward">⛔<span>BRAKE</span></button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="mode-switch-area">
+            <!-- Switch Model Button -->
+            <button id="switchBtn" class="switch-model-btn hidden">Switch Model</button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Project 180</h3>
+                    <p>Advanced Remote Control Car System</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Controls</h3>
+                    <p>Laptop: Circular D-pad controller<br>Mobile: Steering wheel with Gas/Brake</p>
+                </div>
+                <div class="footer-disclaimer">
+                    <p>&copy; 2026 All Rights Reserved by <strong>Long Brothers</strong></p>
+                    <p><small>This project is provided as-is. Users assume all responsibility for safe
+                            operation.</small>
+                    </p>
+                </div>
+            </div>
+        </footer>
     </main>
+
+    <script defer src="/controller/script.js"></script>
 </body>
 
 </html>
