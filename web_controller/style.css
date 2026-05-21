@@ -71,6 +71,48 @@ h1 {
     font-weight: 700;
 }
 
+.connection-panel {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto minmax(120px, 200px) repeat(4, auto) auto auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(7, 12, 20, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(6px);
+}
+
+.connection-panel label {
+    margin: 0;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.connection-panel input,
+.connection-panel button {
+    min-height: 42px;
+}
+
+#status-text,
+#client-ip-text,
+#payload-debug,
+#listening-badge {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#payload-debug {
+    grid-column: 1 / -1;
+    margin-left: 0 !important;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    min-height: 28px;
+}
+
 h2 {
     font-size: 20px;
     font-weight: 700;
@@ -972,8 +1014,10 @@ body.main {
     align-items: stretch;
     justify-content: flex-start;
     min-height: 100dvh;
+    height: auto;
     padding: clamp(16px, 2vw, 28px);
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .app-shell {
@@ -981,8 +1025,8 @@ body.main {
     flex-direction: column;
     justify-content: flex-start;
     gap: clamp(18px, 2.8vw, 30px);
-    flex: 1;
-    min-height: 0;
+    flex: 0 0 auto;
+    min-height: auto;
     width: min(1200px, 100%);
     margin: 0 auto;
 }
@@ -992,8 +1036,8 @@ body.main {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    flex: 1;
-    min-height: 0;
+    flex: 0 0 auto;
+    min-height: auto;
     width: 100%;
     gap: clamp(20px, 3vw, 32px);
     padding-top: clamp(8px, 1.2vw, 16px);
@@ -1019,6 +1063,26 @@ body.main {
     width: 100%;
     max-width: 720px;
     padding: clamp(8px, 1vw, 16px) 0 10px;
+}
+
+.mobile-controller #video-canvas {
+    width: min(100%, 360px);
+    aspect-ratio: 4 / 3;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.12), transparent 24%),
+        linear-gradient(180deg, rgba(10, 14, 20, 0.98), rgba(7, 10, 14, 0.98));
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 16px 40px rgba(0, 0, 0, 0.32);
+    display: block;
+}
+
+#flip-camera-btn {
+    margin-left: 10px;
+    padding: 13px 18px;
+    min-width: 132px;
 }
 
 .steering-wheel-wrap {
@@ -1220,10 +1284,53 @@ body.main {
 @media (max-width: 768px) {
     body.main {
         padding: 12px;
+        min-height: auto;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .connection-panel {
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .connection-panel label,
+    .connection-panel input,
+    #payload-debug {
+        grid-column: 1 / -1;
+    }
+
+    .connection-panel button {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    #status-indicator,
+    #status-text,
+    #listening-badge,
+    #client-ip-text {
+        margin-left: 0 !important;
+        min-width: 0;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+
+    #payload-debug {
+        font-size: 12px;
+        white-space: normal;
+        word-break: break-word;
     }
 
     .app-shell {
         gap: 18px;
+        width: 100%;
+    }
+
+    .controller-stage {
+        padding-bottom: 20px;
     }
 
     .steering-wheel {
@@ -1249,8 +1356,13 @@ body.main {
 }
 
 @media (max-width: 480px) {
+    .connection-panel {
+        grid-template-columns: 1fr;
+    }
+
     .mobile-controller {
         gap: 18px;
+        padding-bottom: 14px;
     }
 
     .steering-wheel {

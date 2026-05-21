@@ -75,3 +75,43 @@ Next recommended steps
 If you want me to take any of the next steps before you return (e.g., migrate to `google.genai` or prepare a production Docker/WGSI setup), tell me which and I'll continue.
 
 — Copilot
+
+---
+
+## Update: 2026-05-22 — Work completed today (brief + detailed)
+
+Brief
+-----
+- Implemented session-based "logic" conversation history so multi-turn Q/A is preserved per client for 1 hour.
+- Made the controller send a persistent `clientId` (stored in `localStorage`) with `/ai` requests so the server can associate chat history with a device.
+- Added server-side cleanup and small debug endpoints to inspect or clear session history.
+
+Detailed
+--------
+- Server changes (`server/app.py`):
+  - Added an in-memory `LOGIC_SESSIONS` store with thread-safe helpers to append history and build prompts that include recent Q/A. This allows the model to see prior user questions and assistant answers when a session is active.
+  - `POST /ai` now accepts `session_id` (or `client_id`) in the JSON body. If present, the server prepends recent history (up to recent items) to the prompt passed to the `AIBrain`, and after the response it appends both the user prompt and assistant answer to the session history.
+  - Background cleanup thread (`_cleanup_expired_sessions_loop`) removes sessions that have been inactive for 1 hour (TTL = 3600s).
+  - Debug endpoints added: `GET /logic_history` (summary of active sessions) and `POST /logic_history/clear` (clear a session by id).
+
+- Client changes (`web_controller/script.js`):
+  - Generates and persists a `project180_client_id` in `localStorage` and includes it as `session_id` in `/ai` requests so the server can map requests to session history.
+  - No change to the voice wakeword logic itself — multi-turn behavior now works because the server receives the client id and includes prior Q/A in the prompt.
+
+- Behavior and limitations:
+  - History is in-memory only (ephemeral). Restarting the server clears histories. If you want persistence across restarts, we should persist to a small file or lightweight DB (SQLite/LevelDB).
+  - The server includes recent history entries (sliced to avoid very long prompts). You can tune how many items to include or summarize history before sending to the model.
+  - Self-signed `ssl_context='adhoc'` still requires accepting the certificate on the phone browser; this is unrelated to the session feature.
+
+- How to test quickly:
+  1. Start the server on your laptop as normal.
+  2. From the phone controller, ensure `project180_client_id` is created (open browser dev tools or check localStorage). You can clear it to force a new id for testing.
+  3. Say `logic describe cpu` then `logic what is it used for` — the second question will include the first Q/A in the prompt and should appear more context-aware.
+  4. Inspect `GET /logic_history` to see active sessions and `POST /logic_history/clear` with `{"session_id":"<id>"}` to clear a session.
+
+- Next recommended improvements:
+  - Persist sessions to disk (SQLite) to survive server restarts if desired.
+  - Add a controller UI button to clear the local `clientId` for convenience when testing multiple devices.
+  - Add per-session size limits and optional summarization to avoid long prompts on extended multi-turn sessions.
+
+If you'd like, I can add the `Clear clientId` UI button to the controller now, or implement persistent storage for session history — which would you prefer next?

@@ -30,11 +30,20 @@
     <main class="app-shell">
         <!-- Connection Panel -->
         <section class="connection-panel">
-            <label for="esp-ip">ESP32 IP:</label>
-            <input id="esp-ip" type="text" placeholder="192.168.4.1" />
+            <label for="esp-ip">Laptop IP:</label>
+            <input id="esp-ip" type="text" placeholder="192.168.31.100" />
+            <button id="start-btn" type="button">Start</button>
             <button id="connect-btn">Connect</button>
+            <button id="tts-test-btn" type="button">TTS Test</button>
+            <button id="flip-camera-btn" type="button">Flip Camera</button>
             <span id="status-indicator" class="disconnected" aria-hidden="true"></span>
             <span id="status-text">Disconnected</span>
+            <span id="voice-mode-chip"
+                style="margin-left:12px;display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,0.12);color:#fff;font-weight:600;font-size:12px">MODE:
+                Default</span>
+            <span id="listening-badge"
+                style="margin-left:12px;display:none;color:#4ade80;font-weight:600">LISTENING</span>
+            <span id="client-ip-text" class="muted" style="margin-left:12px;"></span>
             <div id="payload-debug" aria-live="polite" style="margin-left:16px;font-family:monospace;"></div>
         </section>
         <div class="controller-stage">
@@ -57,6 +66,8 @@
             <!-- Mobile Controller - Steering/Gas/Brake -->
             <section id="mobileController" class="controller-container hidden">
                 <div class="mobile-controller">
+                    <video id="camera-source" autoplay playsinline style="display:none;"></video>
+                    <canvas id="video-canvas" aria-label="Camera cockpit view"></canvas>
                     <div class="steering-wheel-wrap">
                         <div id="steeringWheel" class="steering-wheel" aria-label="Steering wheel control"
                             role="application">
@@ -107,6 +118,7 @@
         </footer>
     </main>
 
+    <script defer src="/controller/vendor/socket.io.min.js"></script>
     <script defer src="/controller/script.js"></script>
 </body>
 
