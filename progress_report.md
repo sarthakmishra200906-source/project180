@@ -115,3 +115,35 @@ Detailed
   - Add per-session size limits and optional summarization to avoid long prompts on extended multi-turn sessions.
 
 If you'd like, I can add the `Clear clientId` UI button to the controller now, or implement persistent storage for session history — which would you prefer next?
+
+---
+
+## Update: 2026-05-25 — Work completed today
+
+Brief
+-----
+- Added a single-command launcher to start the simulator, Flask app, and visualizer together, and print the host LAN IP and browser URLs.
+- Implemented a Matplotlib-based live radar visualizer that reads CSI frames over UDP and renders a tracked X/Y target with a trail.
+- Installed `matplotlib` into the project's virtual environment and validated the launcher script's syntax.
+
+Detailed
+--------
+- New files added:
+  - `server/core/radar_visualizer.py` — non-blocking UDP listener that feeds `CSIProcessor` and renders live X/Y positions.
+  - `start_all.py` — single-launch script that starts `server/simulator/sim.py`, `server.app`, and `server/core/radar_visualizer`, streams their stdout prefixed, and prints the detected LAN IP and URLs to open in a browser.
+
+- Modifications:
+  - `start_all.py` updated to use a cross-platform wait loop (replaced `signal.pause()` with a `time.sleep` loop) to avoid premature shutdown on Windows.
+
+- Environment:
+  - `matplotlib` installed into `.venv` (required for the visualizer).
+
+- Tests run:
+  - Verified `start_all.py` compiles with `python -m py_compile start_all.py`.
+
+Notes / Next steps
+------------------
+- By default the visualizer and simulator bind to localhost; if you want LAN access from other devices, we can (A) patch service bindings to your LAN IP and optionally add Windows Firewall rules, or (B) leave services localhost-only for local testing. I can apply option A automatically if you want.
+- Nothing was pushed yet — proceeding to commit and push these changes to the repository now (unless you prefer to review first).
+
+— Copilot
