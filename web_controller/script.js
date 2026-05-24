@@ -556,6 +556,15 @@ function buildPromptForStyle(prompt, style) {
     return `Answer in the same language and script as the user's question. If the question is Hinglish, answer in Hinglish. If Hindi, answer in Hindi. If English, answer in English.\nUser question: ${prompt}`;
 }
 
+function getPersonaPrefix() {
+    try {
+        const stored = localStorage.getItem('project180_persona');
+        if (stored && stored.trim()) return stored.trim();
+    } catch (_) { }
+    // default persona: concise, friendly companion AI
+    return "You are Cheeku, a friendly, concise companion robot. Answer in-character and speak as Cheeku when asked to describe yourself.";
+}
+
 function resolveStyleForQuestion(question) {
     if (preferredResponseStyle !== 'auto') {
         return preferredResponseStyle;
@@ -569,11 +578,13 @@ async function handleKnowledgeQuery(prompt, styleOverride = null) {
         const resolvedStyle = styleOverride || resolveStyleForQuestion(prompt);
         qaLanguage = resolvedStyle === 'hi' ? 'hi' : 'en';
         updateVoiceModeChip(resolvedStyle);
-        const finalPrompt = buildPromptForStyle(prompt, resolvedStyle);
+        // Prepend persona/system instruction so the model answers in-character
+        const persona = getPersonaPrefix();
+        const finalPrompt = persona + "\n\n" + buildPromptForStyle(prompt, resolvedStyle);
         const response = await fetch('/ai', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: finalPrompt, session_id: getClientId() }),
+            body: JSON.stringify({ prompt: finalPrompt, session_id: getClientId(), persona }),
         });
 
         if (!response.ok) {
@@ -984,22 +995,45 @@ connectBtn?.addEventListener('click', async () => {
 });
 
 // Device selection modal
-laptopBtn?.addEventListener('click', () => {
-    deviceModal.classList.add('hidden');
-    switchToMode('laptop');
-});
+function selectDevice(mode) {
+    try {
+        if (deviceModal) {
+            deviceModal.classList.add('hidden');
+            // ensure modal no longer intercepts pointer events
+            deviceModal.style.pointerEvents = 'none';
+        }
+        switchToMode(mode);
+    } catch (e) {
+        console.error('selectDevice error', e);
+        try { if (payloadDebug) payloadDebug.textContent = 'selectDevice error: ' + String(e); } catch (_) { }
+    }
+}
 
-mobileBtn?.addEventListener('click', () => {
-    deviceModal.classList.add('hidden');
-    switchToMode('mobile');
-});
+if (laptopBtn) {
+    try { laptopBtn.addEventListener('click', () => selectDevice('laptop')); } catch (_) { laptopBtn.onclick = () => selectDevice('laptop'); }
+}
+if (mobileBtn) {
+    try { mobileBtn.addEventListener('click', () => selectDevice('mobile')); } catch (_) { mobileBtn.onclick = () => selectDevice('mobile'); }
+}
 
 // Auto-select device mode on small/touch devices to avoid leaving modal un-dismissed
 if (!currentMode) {
     try {
         const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 900;
-        deviceModal?.classList.add('hidden');
-        switchToMode(isTouch ? 'mobile' : 'laptop');
+        // show modal for non-touch large screens, otherwise auto-select mobile for touch devices
+        if (isTouch) {
+            if (deviceModal) {
+                deviceModal.classList.add('hidden');
+                deviceModal.style.pointerEvents = 'none';
+            }
+            switchToMode('mobile');
+        } else {
+            // leave modal visible on desktop so user can choose laptop/mobile
+            if (deviceModal) {
+                deviceModal.classList.remove('hidden');
+                deviceModal.style.pointerEvents = 'auto';
+            }
+        }
     } catch (_) { }
 }
 
@@ -1033,12 +1067,22 @@ function switchToMode(mode) {
         applyWheelRotation(0);
     }
 
-    if (socket && socket.connected) {
+    // Start local features on mode switch — allow using the page as a mobile controller
+    // even when not connected to a remote socket. getUserMedia requires a user gesture
+    // (click), and switching mode is a direct user action so it's safe to request.
+    try {
         startVoiceRecognition();
+    } catch (e) {
+        console.warn('startVoiceRecognition failed during mode switch', e);
     }
 
-    if (mode === 'mobile' && socket && socket.connected) {
-        startCamera(cameraFacingMode);
+    if (mode === 'mobile') {
+        try {
+            startCamera(cameraFacingMode);
+        } catch (e) {
+            console.warn('startCamera failed during mode switch', e);
+            stopCameraStream();
+        }
     } else {
         stopCameraStream();
     }

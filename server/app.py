@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify, render_template, render_template_stri
 from flask_socketio import SocketIO, emit
 import requests
 from server.core.ai_brain import AIBrain
-from server.config import SERVER_HOST, SERVER_PORT, ESP32_BASE_URL
+from server.config import SERVER_HOST, SERVER_PORT, ESP32_BASE_URL, DEFAULT_PERSONA
 import threading
 import time
 from datetime import datetime, timedelta
@@ -163,7 +163,16 @@ CHAT_TEMPLATE = """
                 messages.scrollTop = messages.scrollHeight
 
                 try{
-                    const res = await fetch('/ai', {method:'POST',headers:{'Content-Type':'application/json'},body: JSON.stringify({prompt})})
+                    function getPersonaPrefix(){
+                        try{
+                            const stored = localStorage.getItem('project180_persona');
+                            if(stored && stored.trim()) return stored.trim();
+                        }catch(_){}
+                        return "You are Cheeku, a friendly, concise companion robot. Answer in-character and speak as Cheeku when asked to describe yourself.";
+                    }
+                    const persona = getPersonaPrefix();
+                    const finalPrompt = persona + "\n\n" + prompt;
+                    const res = await fetch('/ai', {method:'POST',headers:{'Content-Type':'application/json'},body: JSON.stringify({prompt: finalPrompt})})
                     if(!res.ok){
                         const t = await res.text()
                         aiBubble.textContent = 'Error: ' + t
@@ -394,6 +403,8 @@ def ai_endpoint():
     payload = request.get_json(silent=True) or {}
     prompt = payload.get("prompt") or payload.get("text")
     session_id = payload.get("session_id") or payload.get("client_id")
+    # Permit clients to pass an explicit persona; otherwise use server default
+    persona = (payload.get("persona") or payload.get("system") or DEFAULT_PERSONA) if isinstance(payload, dict) else DEFAULT_PERSONA
     if not prompt:
         return jsonify({"error": "missing 'prompt' in JSON body"}), 400
     app.logger.info("/ai request prompt: %s", prompt)
@@ -401,7 +412,9 @@ def ai_endpoint():
     print(f"👉 CRITICAL DEBUG: Backend received prompt: {prompt}")
     # If a session id is present, build a prompt that includes recent Q/A history
     composite_prompt = _build_prompt_with_history(session_id, prompt)
-    resp = brain.respond(composite_prompt)
+    # Prepend a clear system/persona instruction to make the model answer in-character
+    final_prompt = f"System: The following information is authoritative about you:\n{persona}\n\nWhen asked to describe yourself, respond in first-person and include these facts.\n\n{composite_prompt}"
+    resp = brain.respond(final_prompt)
     text = str(resp or "")
     # Save user prompt and assistant response into session history for subsequent turns
     try:

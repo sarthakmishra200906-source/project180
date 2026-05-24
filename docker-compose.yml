@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  csi_simulator:
+    build: ./server/simulator
+    image: project_180_csi_simulator:local
+    ports:
+      - "3000:3000"
+      - "5000:5000/udp"
+    restart: unless-stopped
